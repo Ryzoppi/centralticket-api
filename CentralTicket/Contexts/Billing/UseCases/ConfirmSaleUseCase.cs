@@ -1,4 +1,5 @@
 ﻿using CentralTicket.Contexts.Billing.Entities;
+using CentralTicket.Contexts.Billing.Enums;
 using CentralTicket.Contexts.Billing.Interfaces.IRepositories;
 using CentralTicket.Contexts.Billing.Interfaces.IUseCases;
 
@@ -21,12 +22,12 @@ namespace CentralTicket.Contexts.Billing.UseCases
 
             foreach (Ticket ticket in sale.PurchasedTickets)
             {
-                ticket.Status.Sold();
+                ticket.Status = TicketStatus.Sold;
 
                 this._ticketRepository.Update(ticket);
             }
 
-            sale.Status.Approved();
+            sale.Status = SaleStatus.Approved;
 
             this._saleRepository.Update(sale);
         }

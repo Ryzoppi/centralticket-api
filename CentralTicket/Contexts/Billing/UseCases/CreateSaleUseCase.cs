@@ -1,5 +1,6 @@
 ﻿using CentralTicket.Contexts.Billing.DTOs.Sale;
 using CentralTicket.Contexts.Billing.Entities;
+using CentralTicket.Contexts.Billing.Enums;
 using CentralTicket.Contexts.Billing.Interfaces.IRepositories;
 
 namespace CentralTicket.Contexts.Billing.UseCases
@@ -30,13 +31,13 @@ namespace CentralTicket.Contexts.Billing.UseCases
             };
 
             newSale.UpdateTotalValue(sale.TotalValue);
-            newSale.Status.AwaitingApproval();
+            newSale.Status = SaleStatus.AwaitingApproval;
 
             this._saleRepository.Create(newSale);
 
             foreach (Ticket ticket in tickets)
             {
-                ticket.Status.Reserved();
+                ticket.Status = TicketStatus.Reserved;
 
                 this._ticketRepository.Update(ticket);
             }
