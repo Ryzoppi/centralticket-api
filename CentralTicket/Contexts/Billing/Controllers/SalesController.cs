@@ -1,5 +1,4 @@
 ﻿using CentralTicket.Contexts.Billing.DTOs.Sale;
-using CentralTicket.Contexts.Billing.Entities;
 using CentralTicket.Contexts.Billing.Interfaces.IUseCases;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,17 +12,20 @@ namespace CentralTicket.Contexts.Billing.Controllers
         private readonly IGetSaleByIdUseCase _getSaleByIdUseCase;
         private readonly ICreateSaleUseCase _createSaleUseCase;
         private readonly ICancelSaleUseCase _cancelSaleUseCase;
+        private readonly IConfirmSaleUseCase _confirmSaleUseCase;
 
         public SalesController(
             IListSalesUseCase listSalesUseCase,
             IGetSaleByIdUseCase getSaleByIdUseCase,
             ICreateSaleUseCase createSaleUseCase,
-            ICancelSaleUseCase cancelSaleUseCase)
+            ICancelSaleUseCase cancelSaleUseCase,
+            IConfirmSaleUseCase confirmSaleUseCase)
         {
             this._listSalesUseCase = listSalesUseCase;
             this._getSaleByIdUseCase = getSaleByIdUseCase;
             this._createSaleUseCase = createSaleUseCase;
             this._cancelSaleUseCase = cancelSaleUseCase;
+            this._confirmSaleUseCase = confirmSaleUseCase;
         }
 
         [HttpGet]
@@ -82,6 +84,21 @@ namespace CentralTicket.Contexts.Billing.Controllers
             try
             {
                 this._cancelSaleUseCase.Run(id);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Cofirm([FromQuery] Guid id)
+        {
+            try
+            {
+                this._confirmSaleUseCase.Run(id);
 
                 return NoContent();
             }
