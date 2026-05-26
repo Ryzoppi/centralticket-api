@@ -10,5 +10,7 @@
 
             this.Value = price;
         }
+
+        private Price() { }
     }
 }

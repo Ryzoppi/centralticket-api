@@ -6,9 +6,9 @@ namespace CentralTicket.Contexts.Billing.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly Context _database;
+        private readonly BillingDbContext _database;
 
-        public UserRepository(Context database)
+        public UserRepository(BillingDbContext database)
         {
             _database = database;
         }

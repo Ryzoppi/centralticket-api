@@ -12,5 +12,7 @@
 
             this.Value = title;
         }
+
+        private Title() { }
     }
 }

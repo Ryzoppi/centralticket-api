@@ -7,8 +7,8 @@ namespace CentralTicket.Contexts.Auth.UseCases
     {
         private readonly GenerateRefreshTokenUseCase _generateRefreshTokenUseCase;
 
-        private readonly Context _context;
-        public GenerateAndSaveRefreshTokenUseCase(GenerateRefreshTokenUseCase generateRefreshTokenUseCase, Context context)
+        private readonly AuthDbContext _context;
+        public GenerateAndSaveRefreshTokenUseCase(GenerateRefreshTokenUseCase generateRefreshTokenUseCase, AuthDbContext context)
         {
             _generateRefreshTokenUseCase = generateRefreshTokenUseCase;
             _context = context;

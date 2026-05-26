@@ -1,16 +1,14 @@
 ﻿using CentralTicket.Contexts.Billing.Data;
-using CentralTicket.Contexts.Billing.DTOs.Sale;
 using CentralTicket.Contexts.Billing.Entities;
 using CentralTicket.Contexts.Billing.Interfaces.IRepositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace CentralTicket.Contexts.Billing.Repositories
 {
     public class SaleRepository : ISaleRepository
     {
-        private readonly Context _database;
+        private readonly BillingDbContext _database;
 
-        public SaleRepository(Context database)
+        public SaleRepository(BillingDbContext database)
         {
             _database = database;
         }

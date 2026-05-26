@@ -10,5 +10,7 @@
 
             this.Value = orderCode;
         }
+
+        private OrderCode() { }
     }
 }

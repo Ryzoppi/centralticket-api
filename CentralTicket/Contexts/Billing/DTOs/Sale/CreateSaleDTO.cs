@@ -1,4 +1,5 @@
-﻿using CentralTicket.Contexts.Billing.ValueObjects;
+﻿using CentralTicket.Contexts.Billing.Enums;
+using CentralTicket.Contexts.Billing.ValueObjects;
 
 namespace CentralTicket.Contexts.Billing.DTOs.Sale
 {

@@ -1,16 +1,15 @@
 ﻿using CentralTicket.Contexts.Auth.Data;
 using CentralTicket.Contexts.Auth.Entities;
 using CentralTicket.Contexts.Auth.Interfaces.IRepositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace CentralTicket.Contexts.Auth.Repositories
 {
     public class UserRepository : IUserRepository
     {
 
-        private readonly Context _database;
+        private readonly AuthDbContext _database;
 
-        public UserRepository(Context database)
+        public UserRepository(AuthDbContext database)
         {
             _database = database;
         }

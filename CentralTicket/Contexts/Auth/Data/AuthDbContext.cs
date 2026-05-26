@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CentralTicket.Contexts.Auth.Entities;
-using System.Reflection;
+﻿using CentralTicket.Contexts.Auth.Entities;
+using CentralTicket.Contexts.Auth.Mappings;
+using Microsoft.EntityFrameworkCore;
 
 namespace CentralTicket.Contexts.Auth.Data
 {
@@ -15,7 +15,7 @@ namespace CentralTicket.Contexts.Auth.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("auth");
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfiguration(new UserMapping());
             base.OnModelCreating(modelBuilder);
         }
     }

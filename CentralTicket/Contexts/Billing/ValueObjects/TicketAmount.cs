@@ -10,5 +10,7 @@
 
             this.Value = ticketAmount;
         }
+
+        private TicketAmount() { }
     }
 }

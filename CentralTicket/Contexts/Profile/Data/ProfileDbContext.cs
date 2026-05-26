@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using CentralTicket.Contexts.Profile.Entities;
-using System.Reflection;
+using CentralTicket.Contexts.Profile.Mappings;
 
 namespace CentralTicket.Contexts.Profile.Data
 {
@@ -16,7 +16,8 @@ namespace CentralTicket.Contexts.Profile.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("profile");
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfiguration(new UserMapping());
+            modelBuilder.ApplyConfiguration(new SaleMapping());
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CentralTicket.Contexts.Billing.Entities;
-using System.Reflection;
+﻿using CentralTicket.Contexts.Billing.Entities;
+using CentralTicket.Contexts.Billing.Mappings;
+using Microsoft.EntityFrameworkCore;
 
 namespace CentralTicket.Contexts.Billing.Data
 {
@@ -18,7 +18,10 @@ namespace CentralTicket.Contexts.Billing.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("billing");
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfiguration(new EventMapping());
+            modelBuilder.ApplyConfiguration(new SaleMapping());
+            modelBuilder.ApplyConfiguration(new TicketMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
             base.OnModelCreating(modelBuilder);
         }
     }

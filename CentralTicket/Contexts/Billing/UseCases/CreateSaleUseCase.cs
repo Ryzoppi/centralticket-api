@@ -2,10 +2,11 @@
 using CentralTicket.Contexts.Billing.Entities;
 using CentralTicket.Contexts.Billing.Enums;
 using CentralTicket.Contexts.Billing.Interfaces.IRepositories;
+using CentralTicket.Contexts.Billing.Interfaces.IUseCases;
 
 namespace CentralTicket.Contexts.Billing.UseCases
 {
-    public class CreateSaleUseCase
+    public class CreateSaleUseCase : ICreateSaleUseCase
     {
         private readonly ISaleRepository _saleRepository;
         private readonly IUserRepository _userRepository;

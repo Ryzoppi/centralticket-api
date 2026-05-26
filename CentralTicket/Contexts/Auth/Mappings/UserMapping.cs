@@ -21,10 +21,7 @@ namespace CentralTicket.Contexts.Auth.Mappings
                 e.Property(x => x.Value).HasColumnName("Email");
             });
 
-            builder.OwnsOne(u => u.Password, p =>
-            {
-                p.Property(x => x.Value).HasColumnName("PasswordHash");
-            });
+            builder.Property(e => e.PasswordHash).HasColumnName("PasswordHash");
         }
     }
 }
