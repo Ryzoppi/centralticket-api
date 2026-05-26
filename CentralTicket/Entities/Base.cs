@@ -2,13 +2,7 @@
 {
     public class Base
     {
-        public Guid Id { get; private set; }
-        public DateTime CreatedAt {  get; private set; }
-
-        public Base()
-        {
-            Id = Guid.NewGuid();
-            CreatedAt = DateTime.Now;
-        }
+        public Guid Id { get; private set; } = Guid.NewGuid();
+        public DateTime CreatedAt { get; private set; } = DateTime.UtcNow;
     }
 }

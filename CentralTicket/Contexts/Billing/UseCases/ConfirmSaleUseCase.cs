@@ -5,12 +5,12 @@ using CentralTicket.Contexts.Billing.Interfaces.IUseCases;
 
 namespace CentralTicket.Contexts.Billing.UseCases
 {
-    public class CancelSaleUseCase : ICancelSaleUseCase
+    public class ConfirmSaleUseCase : IConfirmSaleUseCase
     {
         private readonly ISaleRepository _saleRepository;
         private readonly ITicketRepository _ticketRepository;
 
-        public CancelSaleUseCase(ISaleRepository saleRepository, ITicketRepository ticketRepository)
+        public ConfirmSaleUseCase(ISaleRepository saleRepository, ITicketRepository ticketRepository)
         {
             _saleRepository = saleRepository;
             _ticketRepository = ticketRepository;
@@ -20,16 +20,14 @@ namespace CentralTicket.Contexts.Billing.UseCases
         {
             Sale sale = this._saleRepository.GetById(id);
 
-            sale.Status = SaleStatus.Canceled;
-
-            foreach(Ticket ticket in sale.PurchasedTickets)
+            foreach (Ticket ticket in sale.PurchasedTickets)
             {
-                ticket.Status = TicketStatus.Available;
+                ticket.Status = TicketStatus.Sold;
 
                 this._ticketRepository.Update(ticket);
             }
 
-            // Reembolso
+            sale.Status = SaleStatus.Approved;
 
             this._saleRepository.Update(sale);
         }

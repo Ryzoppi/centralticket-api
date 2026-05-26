@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using CentralTicket.Contexts.Billing.Entities;
+using System.Reflection;
 
 namespace CentralTicket.Contexts.Billing.Data
 {
-    public class Context : DbContext
+    public class BillingDbContext : DbContext
     {
-        public Context(DbContextOptions options) : base(options)
+        public BillingDbContext(DbContextOptions<BillingDbContext> options) : base(options)
         {
         }
 
@@ -16,18 +17,8 @@ namespace CentralTicket.Contexts.Billing.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Sale>()
-                .HasKey(sale => sale.Id);
-
-            modelBuilder.Entity<Ticket>()
-                .HasKey(ticket => ticket.Id);
-
-            modelBuilder.Entity<User>()
-                .HasKey(user => user.Id);
-
-            modelBuilder.Entity<Event>()
-                .HasKey(evnt => evnt.Id);
-
+            modelBuilder.HasDefaultSchema("billing");
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -1,9 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using CentralTicket.Contexts.Auth.Data;
+using CentralTicket.Contexts.Profile.Data;
+using CentralTicket.Contexts.Billing.Data;
 using CentralTicket.Contexts.Auth;
 using CentralTicket.Contexts.Auth.Interfaces.IRepositories;
 using CentralTicket.Contexts.Auth.Repositories;
 using CentralTicket.Contexts.Auth.UseCases;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 
@@ -65,7 +68,11 @@ namespace CentralTicket
                     };
                 });
 
-            var app = builder.Build();
+            var conn = builder.Configuration.GetConnectionString("Default");
+            var serverVersion = ServerVersion.AutoDetect(conn);
+
+            builder.Services.AddDbContext<AuthDbContext>(opt =>
+                opt.UseMySql(conn, serverVersion));
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -74,16 +81,22 @@ namespace CentralTicket
                 app.MapScalarApiReference();
             }
 
-            app.UseHttpsRedirection();
+            builder.Services.AddDbContext<ProfileDbContext>(opt =>
+                opt.UseMySql(conn, serverVersion));
+
+            builder.Services.AddDbContext<BillingDbContext>(opt =>
+                opt.UseMySql(conn, serverVersion));
 
             app.UseCors("AllowFrontend");
 
             app.UseAuthentication();
             app.UseAuthorization();
 
+            var app = builder.Build();
 
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
             app.MapControllers();
-
             app.Run();
         }
     }
