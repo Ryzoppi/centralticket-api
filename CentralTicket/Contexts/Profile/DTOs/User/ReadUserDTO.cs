@@ -1,9 +1,9 @@
 ﻿using CentralTicket.Contexts.Profile.ValueObjects;
-using CentralTicket.Entities;
+using CentralTicket.DTOs.Base;
 
-namespace CentralTicket.Contexts.Profile.Entities
+namespace CentralTicket.Contexts.Profile.DTOs.User
 {
-    public class User : Base
+    public class ReadUserDTO : ReadBaseDTO
     {
         public Name Name { get; set; }
         public Password Password { get; set; }

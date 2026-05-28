@@ -11,22 +11,17 @@ namespace CentralTicket.Contexts.Profile.Mappings
             builder.ToTable("profile_Sales");
             builder.HasKey(s => s.Id);
 
-            //builder.Property(s => s.PaymentMethod).HasColumnName("PaymentMethod");
-            //builder.Property(s => s.Status).HasColumnName("Status");
+            builder.Property(s => s.PaymentMethod).HasColumnName("PaymentMethod");
+            builder.Property(s => s.OrderCode).HasColumnName("OrderCode");
+            builder.Property(s => s.TotalValue).HasColumnName("TotalValue");
 
-            //builder.OwnsOne(s => s.TotalValue, p =>
-            //    p.Property(x => x.Value).HasColumnName("TotalValue").HasColumnType("decimal(18,2)"));
+            builder.HasOne(s => s.Customer)
+                .WithMany()
+                .HasForeignKey("CustomerId");
 
-            //builder.OwnsOne(s => s.OrderCode, p =>
-            //    p.Property(x => x.Value).HasColumnName("OrderCode"));
-
-            //builder.HasOne(s => s.Customer)
-            //    .WithMany()
-            //    .HasForeignKey("CustomerId");
-
-            //builder.HasMany(s => s.PurchasedTickets)
-            //    .WithOne()
-            //    .HasForeignKey("SaleId");
+            builder.HasMany(s => s.PurchasedTickets)
+                .WithOne()
+                .HasForeignKey("SaleId");
         }
     }
 }

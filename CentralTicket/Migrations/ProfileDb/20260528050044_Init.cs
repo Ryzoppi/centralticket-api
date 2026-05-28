@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CentralTicket.Contexts.Auth.Migrations
+namespace CentralTicket.Migrations.ProfileDb
 {
     /// <inheritdoc />
     public partial class Init : Migration
@@ -12,39 +12,14 @@ namespace CentralTicket.Contexts.Auth.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "auth");
+                name: "profile");
 
             migrationBuilder.AlterDatabase()
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "auth_Users",
-                schema: "auth",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PasswordHash = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ProfilePictureUrl = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    RefreshToken = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "datetime(6)", nullable: true),
-                    createdAt = table.Column<DateOnly>(type: "date", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_auth_Users", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Event",
-                schema: "auth",
+                name: "profile_Events",
+                schema: "profile",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -61,43 +36,62 @@ namespace CentralTicket.Contexts.Auth.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.PrimaryKey("PK_profile_Events", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Sale",
-                schema: "auth",
+                name: "profile_Users",
+                schema: "profile",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProfilePictureUrl = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_profile_Users", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "profile_Sales",
+                schema: "profile",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     TotalValue = table.Column<double>(type: "double", nullable: false),
                     PaymentMethod = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Status = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     OrderCode = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Customer = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci"),
+                    CustomerId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sale", x => x.Id);
+                    table.PrimaryKey("PK_profile_Sales", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sale_auth_Users_UserId",
-                        column: x => x.UserId,
-                        principalSchema: "auth",
-                        principalTable: "auth_Users",
-                        principalColumn: "Id");
+                        name: "FK_profile_Sales_profile_Users_CustomerId",
+                        column: x => x.CustomerId,
+                        principalSchema: "profile",
+                        principalTable: "profile_Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Ticket",
-                schema: "auth",
+                name: "profile_Tickets",
+                schema: "profile",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -114,39 +108,39 @@ namespace CentralTicket.Contexts.Auth.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.PrimaryKey("PK_profile_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ticket_Event_EventId",
+                        name: "FK_profile_Tickets_profile_Events_EventId",
                         column: x => x.EventId,
-                        principalSchema: "auth",
-                        principalTable: "Event",
+                        principalSchema: "profile",
+                        principalTable: "profile_Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ticket_Sale_SaleId",
+                        name: "FK_profile_Tickets_profile_Sales_SaleId",
                         column: x => x.SaleId,
-                        principalSchema: "auth",
-                        principalTable: "Sale",
+                        principalSchema: "profile",
+                        principalTable: "profile_Sales",
                         principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sale_UserId",
-                schema: "auth",
-                table: "Sale",
-                column: "UserId");
+                name: "IX_profile_Sales_CustomerId",
+                schema: "profile",
+                table: "profile_Sales",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ticket_EventId",
-                schema: "auth",
-                table: "Ticket",
+                name: "IX_profile_Tickets_EventId",
+                schema: "profile",
+                table: "profile_Tickets",
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ticket_SaleId",
-                schema: "auth",
-                table: "Ticket",
+                name: "IX_profile_Tickets_SaleId",
+                schema: "profile",
+                table: "profile_Tickets",
                 column: "SaleId");
         }
 
@@ -154,20 +148,20 @@ namespace CentralTicket.Contexts.Auth.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Ticket",
-                schema: "auth");
+                name: "profile_Tickets",
+                schema: "profile");
 
             migrationBuilder.DropTable(
-                name: "Event",
-                schema: "auth");
+                name: "profile_Events",
+                schema: "profile");
 
             migrationBuilder.DropTable(
-                name: "Sale",
-                schema: "auth");
+                name: "profile_Sales",
+                schema: "profile");
 
             migrationBuilder.DropTable(
-                name: "auth_Users",
-                schema: "auth");
+                name: "profile_Users",
+                schema: "profile");
         }
     }
 }

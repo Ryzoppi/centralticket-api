@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CentralTicket.Contexts.Billing.Migrations
+namespace CentralTicket.Migrations.BillingDb
 {
     /// <inheritdoc />
     public partial class Init : Migration

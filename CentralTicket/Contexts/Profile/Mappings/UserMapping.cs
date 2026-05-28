@@ -11,15 +11,22 @@ namespace CentralTicket.Contexts.Profile.Mappings
             builder.ToTable("profile_Users");
             builder.HasKey(u => u.Id);
 
-            //builder.OwnsOne(u => u.Name, n =>
-            //{
-            //    n.Property(x => x.Value).HasColumnName("Name");
-            //});
+            builder.OwnsOne(u => u.Name, n =>
+            {
+                n.Property(x => x.Value).HasColumnName("Name");
+            });
 
-            //builder.OwnsOne(u => u.Email, e =>
-            //{
-            //    e.Property(x => x.Value).HasColumnName("Email");
-            //});
+            builder.OwnsOne(u => u.Email, e =>
+            {
+                e.Property(x => x.Value).HasColumnName("Email");
+            });
+
+            builder.OwnsOne(u => u.Password, e =>
+            {
+                e.Property(x => x.Value).HasColumnName("Password");
+            });
+
+            builder.Property(e => e.ProfilePictureUrl).HasColumnName("ProfilePictureUrl");
         }
     }
 }
