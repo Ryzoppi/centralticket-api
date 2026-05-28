@@ -48,7 +48,6 @@ namespace CentralTicket
                 opt.UseMySql(conn, serverVersion, x => x.SchemaBehavior(MySqlSchemaBehavior.Ignore)));
 
             // Auth
-            builder.Services.AddScoped<Contexts.Auth.Interfaces.IRepositories.IUserRepository, Contexts.Auth.Repositories.UserRepository>();
             builder.Services.AddScoped<ICreateTokenResponseUseCase, CreateTokenResponseUseCase>();
             builder.Services.AddScoped<ICreateTokenUseCase, CreateTokenUseCase>();
             builder.Services.AddScoped<IGenerateAndSaveRefreshTokenUseCase, GenerateAndSaveRefreshTokenUseCase>();
@@ -59,16 +58,7 @@ namespace CentralTicket
             builder.Services.AddScoped<IValidateRefreshTokenUseCase, ValidateRefreshTokenUseCase>();
             builder.Services.AddScoped<IValidateTokenUseCase, ValidateTokenUseCase>();
 
-            builder.Services.AddScoped<IUserRepository, UserRepository>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.RegisterUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.LoginUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.CreateTokenUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.ValidateTokenUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.GenerateAndSaveRefreshTokenUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.GenerateRefreshTokenUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.ValidateRefreshTokenUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.CreateTokenResponseUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.RefreshTokensUseCase>();
+            builder.Services.AddScoped<Contexts.Auth.Interfaces.IRepositories.IUserRepository, Contexts.Auth.Repositories.UserRepository>();
 
             // Billing
             builder.Services.AddScoped<Contexts.Billing.Interfaces.IRepositories.IUserRepository, Contexts.Billing.Repositories.UserRepository>();
