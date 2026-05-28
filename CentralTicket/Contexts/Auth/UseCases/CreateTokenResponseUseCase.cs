@@ -1,9 +1,10 @@
 ﻿using CentralTicket.Contexts.Auth.Dtos;
 using CentralTicket.Contexts.Auth.Entities;
+using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
 
 namespace CentralTicket.Contexts.Auth.UseCases
 {
-    public class CreateTokenResponseUseCase
+    public class CreateTokenResponseUseCase : ICreateTokenResponseUseCase
     {
         private readonly CreateTokenUseCase _createTokenUseCase;
         private readonly GenerateAndSaveRefreshTokenUseCase _generateAndSaveRefreshTokenUseCase;

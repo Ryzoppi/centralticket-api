@@ -6,5 +6,6 @@ namespace CentralTicket.Contexts.Auth.Interfaces.IRepositories
     {
         public List<User> GetAll();
         public void Create(User newSale);
+        public void SaveChanges();
     }
 }

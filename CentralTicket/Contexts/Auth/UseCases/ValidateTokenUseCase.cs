@@ -1,11 +1,12 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
 namespace CentralTicket.Contexts.Auth.UseCases
 {
-    public class ValidateTokenUseCase
+    public class ValidateTokenUseCase : IValidateTokenUseCase
     {
         private readonly IConfiguration _configuration;
 

@@ -9,7 +9,6 @@ namespace CentralTicket.Contexts.Auth.Data
         public Context(DbContextOptions<Context> options) : base(options)
         {
         }
-
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

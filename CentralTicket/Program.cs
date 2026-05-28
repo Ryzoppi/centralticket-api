@@ -1,5 +1,6 @@
 using CentralTicket.Contexts.Auth;
 using CentralTicket.Contexts.Auth.Interfaces.IRepositories;
+using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
 using CentralTicket.Contexts.Auth.Repositories;
 using CentralTicket.Contexts.Auth.UseCases;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,6 +38,16 @@ namespace CentralTicket
             builder.Services.AddDbContext<Contexts.Auth.Data.Context>(options =>
                 options.UseMySql(mySqlConnectionStr, ServerVersion.AutoDetect(mySqlConnectionStr)));
 
+            builder.Services.AddScoped<ICreateTokenResponseUseCase, CreateTokenResponseUseCase>();
+            builder.Services.AddScoped<ICreateTokenUseCase, CreateTokenUseCase>();
+            builder.Services.AddScoped<IGenerateAndSaveRefreshTokenUseCase, GenerateAndSaveRefreshTokenUseCase>();
+            builder.Services.AddScoped<IGenerateRefreshTokenUseCase, GenerateRefreshTokenUseCase>();
+            builder.Services.AddScoped<ILoginUseCase, LoginUseCase>();
+            builder.Services.AddScoped<IRefreshTokensUseCase, RefreshTokensUseCase>();
+            builder.Services.AddScoped<IRegisterUseCase, RegisterUseCase>();
+            builder.Services.AddScoped<IValidateRefreshTokenUseCase, ValidateRefreshTokenUseCase>();
+            builder.Services.AddScoped<IValidateTokenUseCase, ValidateTokenUseCase>();
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<Contexts.Auth.UseCases.RegisterUseCase>();
             builder.Services.AddScoped<Contexts.Auth.UseCases.LoginUseCase>();
@@ -44,7 +55,7 @@ namespace CentralTicket
             builder.Services.AddScoped<Contexts.Auth.UseCases.ValidateTokenUseCase>();
             builder.Services.AddScoped<Contexts.Auth.UseCases.GenerateAndSaveRefreshTokenUseCase>();
             builder.Services.AddScoped<Contexts.Auth.UseCases.GenerateRefreshTokenUseCase>();
-            builder.Services.AddScoped<Contexts.Auth.UseCases.ValidateRefreshToken>();
+            builder.Services.AddScoped<Contexts.Auth.UseCases.ValidateRefreshTokenUseCase>();
             builder.Services.AddScoped<Contexts.Auth.UseCases.CreateTokenResponseUseCase>();
             builder.Services.AddScoped<Contexts.Auth.UseCases.RefreshTokensUseCase>();
 

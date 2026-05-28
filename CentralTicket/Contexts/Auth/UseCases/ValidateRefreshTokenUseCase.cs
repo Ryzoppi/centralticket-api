@@ -1,13 +1,14 @@
 ﻿using CentralTicket.Contexts.Auth.Entities;
 using CentralTicket.Contexts.Auth.Interfaces.IRepositories;
+using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
 
 namespace CentralTicket.Contexts.Auth.UseCases
 {
-    public class ValidateRefreshToken
+    public class ValidateRefreshTokenUseCase : IValidateRefreshTokenUseCase
     {
         private readonly IUserRepository _userRepository;
 
-        public ValidateRefreshToken(IUserRepository userRepository)
+        public ValidateRefreshTokenUseCase(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

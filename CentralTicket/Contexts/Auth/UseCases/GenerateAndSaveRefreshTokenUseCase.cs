@@ -1,17 +1,19 @@
 ﻿using CentralTicket.Contexts.Auth.Data;
 using CentralTicket.Contexts.Auth.Entities;
+using CentralTicket.Contexts.Auth.Interfaces.IRepositories;
+using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
 
 namespace CentralTicket.Contexts.Auth.UseCases
 {
-    public class GenerateAndSaveRefreshTokenUseCase
+    public class GenerateAndSaveRefreshTokenUseCase : IGenerateAndSaveRefreshTokenUseCase
     {
         private readonly GenerateRefreshTokenUseCase _generateRefreshTokenUseCase;
 
-        private readonly Context _context;
-        public GenerateAndSaveRefreshTokenUseCase(GenerateRefreshTokenUseCase generateRefreshTokenUseCase, Context context)
+        private readonly IUserRepository _userRepository;
+        public GenerateAndSaveRefreshTokenUseCase(GenerateRefreshTokenUseCase generateRefreshTokenUseCase, IUserRepository userRepository)
         {
             _generateRefreshTokenUseCase = generateRefreshTokenUseCase;
-            _context = context;
+            _userRepository = userRepository;
         }
 
         public async Task<string> Run(User user)
@@ -21,7 +23,7 @@ namespace CentralTicket.Contexts.Auth.UseCases
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
 
-            await _context.SaveChangesAsync();
+            _userRepository.SaveChanges();
 
             return refreshToken;    
         }

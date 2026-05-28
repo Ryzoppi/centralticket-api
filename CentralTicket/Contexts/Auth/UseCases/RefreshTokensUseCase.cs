@@ -1,14 +1,15 @@
 ﻿using CentralTicket.Contexts.Auth.Dtos;
+using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
 using CentralTicket.Contexts.Auth.Requests;
 
 namespace CentralTicket.Contexts.Auth.UseCases
 {
-    public class RefreshTokensUseCase
+    public class RefreshTokensUseCase : IRefreshTokensUseCase
     {
-        private readonly ValidateRefreshToken _validateRefreshToken;
+        private readonly ValidateRefreshTokenUseCase _validateRefreshToken;
         private readonly CreateTokenResponseUseCase _createTokenResponseUseCase;
 
-        public RefreshTokensUseCase(ValidateRefreshToken validateRefreshToken, CreateTokenResponseUseCase createTokenResponseUseCase)
+        public RefreshTokensUseCase(ValidateRefreshTokenUseCase validateRefreshToken, CreateTokenResponseUseCase createTokenResponseUseCase)
         {
             _validateRefreshToken = validateRefreshToken;
             _createTokenResponseUseCase = createTokenResponseUseCase;

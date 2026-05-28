@@ -1,4 +1,5 @@
 ﻿using CentralTicket.Contexts.Auth.Entities;
+using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace CentralTicket.Contexts.Auth.UseCases
 {
-    public class CreateTokenUseCase
+    public class CreateTokenUseCase : ICreateTokenUseCase
     {
         private readonly IConfiguration _configuration;
 

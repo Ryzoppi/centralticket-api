@@ -1,13 +1,14 @@
 ﻿using CentralTicket.Contexts.Auth.Dtos;
 using CentralTicket.Contexts.Auth.Entities;
 using CentralTicket.Contexts.Auth.Interfaces.IRepositories;
+using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
 using CentralTicket.Contexts.Auth.Requests;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 
 namespace CentralTicket.Contexts.Auth.UseCases
 {
-    public class LoginUseCase
+    public class LoginUseCase : ILoginUseCase
     {
         private readonly CreateTokenResponseUseCase _createTokenResponseUseCase;
 

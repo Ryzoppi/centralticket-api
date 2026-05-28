@@ -1,11 +1,12 @@
 ﻿using CentralTicket.Contexts.Auth.Entities;
 using CentralTicket.Contexts.Auth.Interfaces.IRepositories;
+using CentralTicket.Contexts.Auth.Interfaces.IUseCases;
 using CentralTicket.Contexts.Auth.Requests;
 using Microsoft.AspNetCore.Identity;
 
 namespace CentralTicket.Contexts.Auth.UseCases
 {
-    public class RegisterUseCase
+    public class RegisterUseCase : IRegisterUseCase 
     {
 
         private readonly IUserRepository _userRepository;
